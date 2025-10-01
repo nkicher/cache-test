@@ -1,0 +1,47 @@
+<p>main works!</p>
+@if (pwaInstall.canPrompt) {
+    <button (click)="pwaInstall.promptInstall()">
+        Install App
+    </button>
+}
+<br>
+
+<!-- @for (row of data; track row.id) {
+   <img style="margin: 2px"
+        class='recipeImg' 
+        [src]="`https://kicherops.com/app/assets/recipe/images/small/${row.img}`" 
+    />
+} -->
+
+
+<table class="recipe-table">
+    <tr>
+        <th>Index</th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Img Name</th>
+        <th>Img</th>
+        <th>Ref</th>
+        <th>Idx</th>
+        <th>tix</th>
+        <th>updated</th>
+    </tr>
+    @for (row of data; track row.id) {
+        <tr>
+            <td>{{ $index+1 }}</td>
+            <td>{{ row.id }}</td>
+            <td>{{ row.name }}</td>
+            <td>{{ row.img }}</td>
+            <td>
+                <img 
+                    class='recipeImg' 
+                    [src]="`https://kicherops.com/app/assets/recipe/images/small/${row.img}`" 
+                />
+            </td>
+            <td>{{ row.ref }}</td>
+            <td>{{ row.idx }}</td>
+            <td>{{ row.tix }}</td>
+            <td>{{ row.updated }}</td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,58 @@
+nvm install 22.20.0
+npm update
+npm install -g @angular/cli
+node --version :v22.20.0 
+npm --version  :10.9.3
+ng version     :20.3.2
+
+ng new cache-test
+  style sheet format: CSS
+  Server Side Render: N
+  App w/out Zone.js : N // for now use the old change detection strategy
+  AI Tools          : GitHub Copilot
+ng add @angular/pwa --skip-confirmation
+
+cd /c/dev/angular/cache-test/
+ng build --configuration production
+
+You need an HTTP server to serve your built application. For local development and testing, you can use a lightweight server like http-server.
+npm install -g serve
+cd dist/cache-test/browser
+serve
+
+Note: This doesnt work with ng serve
+
+
+
+in the ngsw-config.json
+
+installMode dictates how resources are initially cached when a user first visits 
+the application and the service worker is registered. It has two possible values:
+  prefetch - The service worker downloads and caches every resource listed in the asset group as soon as it takes control of the page.
+  lazy - The service worker does not cache any resources upfront. Instead, it only caches a resource the first time it is requested by the application.
+
+updateMode controls how already-cached resources are updated when a user revisits the 
+application after a new version of the PWA has been deployed. Like installMode, it has two values: 
+  prefetch: When the service worker detects a new version of the application, it immediately downloads and caches any changed resources in this asset group. It does not wait for the resource to be requested.
+  lazy - The service worker will not proactively update cached resources. It waits for the application to request a resource again, and only then will it fetch the updated version. This mode is only valid if installMode is also lazy.
+
+"assetGroups": [
+  {
+    "installMode": "prefetch",
+    "updateMode": "prefetch",
+  }
+]
+"dataGroups": [{
+  cacheConfig: Defines the caching strategy.
+    strategy: Can be performance (cache-first) or freshness (network-first).
+    maxAge: How long responses should remain in the cache.
+    maxSize: The maximum number of entries to store in this specific cache. 
+}]
+
+to set a resource to stay in cache forever use this:
+ "maxAge": "36500d",
+
+to set almost unlimited resources to be cached, use this:
+ "maxSize": 10000,
+
+you can use the caches.delete() API to remove a specific cache from your service code when needed. 
