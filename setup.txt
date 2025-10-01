@@ -19,7 +19,8 @@ You need an HTTP server to serve your built application. For local development a
 npm install -g serve
 cd dist/cache-test/browser
 serve
-
+or 
+serve dist/cache-test/browser
 Note: This doesnt work with ng serve
 
 
@@ -56,3 +57,10 @@ to set almost unlimited resources to be cached, use this:
  "maxSize": 10000,
 
 you can use the caches.delete() API to remove a specific cache from your service code when needed. 
+
+in manifest use
+   "display": "standalone", to launch desktop application
+   "display": "fullscreen" to launch in fullscreen mode
+
+The "display": "fullscreen" setting in the manifest is only consistently supported on Android devices
+ and will not work on desktop or iOS
